@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#141514" />
+  <meta name="description" content="Official Operative Registration Portal for The Protocol 2026 by NIT Warangal IEEE Student Branch." />
+  <title>Operative Registration // NIT Warangal IEEE The Protocol 2026</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+</head>
+<body>
+
+  <!-- Hidden Iframe Target for Seamless Zero-CORS Google Form Submission -->
+  <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" tabindex="-1" title="Form Submission Target"></iframe>
+
+  <!-- Hidden Google Form -->
+  <form id="hiddenGoogleForm" method="POST" target="hidden_iframe" style="display:none;">
+    <input type="hidden" name="entry.371560776" />
+    <input type="hidden" name="entry.2112393183" />
+    <input type="hidden" name="entry.754048162" />
+  </form>
+
+  <!-- Top Editorial Masthead -->
+  <header class="container rule-double">
+    <div>
+      <strong class="masthead-title">NIT WARANGAL IEEE</strong>
+      <span style="margin: 0 0.5rem; color: #4e564e;">•</span>
+      <span class="font-mono-tabular">THE PROTOCOL 2026</span>
+    </div>
+    <div class="masthead-tag font-mono-tabular">
+      ENLISTMENT
+    </div>
+  </header>
+
+  <!-- Main Body -->
+  <main class="container">
+
+    <!-- Title Section -->
+    <div class="title-section">
+      <h1 class="main-title font-serif-editorial">
+        Commission your operative pass.
+      </h1>
+      <p class="subtitle font-display-grotesk">
+        Enter your student identity to register your enlistment in the master protocol directory.
+      </p>
+    </div>
+
+    <!-- Error Alert Box -->
+    <div id="errorBox" class="alert-box font-display-grotesk" style="display: none;"></div>
+
+    <!-- REGISTRATION FORM SECTION -->
+    <section id="formSection" class="fade-in">
+      <form id="registrationForm" class="form-card">
+        
+        <div class="field-group">
+          <label for="fullName" class="field-label">
+            Full Name *
+          </label>
+          <input
+            type="text"
+            id="fullName"
+            required
+            autocomplete="name"
+            placeholder="e.g. Alan Turing"
+            class="field-input"
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="rollNumber" class="field-label">
+            Student Roll No / ID *
+          </label>
+          <input
+            type="text"
+            id="rollNumber"
+            required
+            autocomplete="off"
+            placeholder="e.g. 23CSB01"
+            class="field-input uppercase-input"
+          />
+        </div>
+
+        <div class="field-group">
+          <label for="contactPhone" class="field-label">
+            Phone / WhatsApp Contact *
+          </label>
+          <input
+            type="tel"
+            id="contactPhone"
+            required
+            autocomplete="tel"
+            placeholder="e.g. 9876543210"
+            class="field-input"
+          />
+        </div>
+
+        <div class="rule-hairline" style="margin-top: 0.25rem;"></div>
+
+        <button
+          type="submit"
+          id="submitBtn"
+          class="btn-primary"
+        >
+          Commission Operative & Register →
+        </button>
+      </form>
+    </section>
+
+    <!-- LOADING / COMMISSIONING STATE -->
+    <section id="statusSection" class="status-card fade-in" style="display: none;">
+      <div class="spinner"></div>
+      <div class="font-mono-tabular" style="font-size: 0.8125rem; color: var(--color-text);">
+        Recording enlistment in Protocol directory...
+      </div>
+      <div style="font-size: 0.6875rem; color: var(--color-subtext);">
+        Transmitting credentials to master registry
+      </div>
+    </section>
+
+    <!-- THANK YOU / REGISTRATION CONFIRMED SECTION -->
+    <section id="thankYouSection" class="status-card fade-in" style="display: none;">
+      
+      <div class="editorial-stamp stamp-success font-mono-tabular">
+        ✓ REGISTRATION CONFIRMED
+      </div>
+
+      <div style="margin-top: 0.25rem;">
+        <h2 class="font-serif-editorial" style="font-size: 1.65rem; color: var(--color-text); font-weight: 400;">
+          Enlistment Filed Successfully.
+        </h2>
+        <p style="font-size: 0.8125rem; color: var(--color-subtext); margin-top: 0.25rem;">
+          Your operative details have been officially logged in the event registry.
+        </p>
+      </div>
+
+      <!-- Operative Details Summary -->
+      <div class="summary-details">
+        <div class="summary-row">
+          <span class="summary-label">Operative Name</span>
+          <span id="confirmName" class="summary-val"></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Roll Number</span>
+          <span id="confirmRollNo" class="summary-val font-mono-tabular"></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Contact</span>
+          <span id="confirmPhone" class="summary-val font-mono-tabular"></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Logged At</span>
+          <span id="confirmTimestamp" class="summary-val font-mono-tabular"></span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">Reference ID</span>
+          <span id="confirmRefId" class="summary-val font-mono-tabular" style="color: var(--color-gold);"></span>
+        </div>
+      </div>
+
+      <!-- Venue Instructions -->
+      <div class="notice-box font-display-grotesk">
+        <strong style="color: var(--color-gold); display: block; margin-bottom: 0.2rem; font-size: 0.75rem;">
+          ON-SITE COMMISSIONING NOTICE:
+        </strong>
+        Physical Call Sign, wristband assignment, and interactive operative badge access will take place at the event registration desk. Keep your student Roll Number handy for verification.
+      </div>
+
+      <button
+        type="button"
+        id="registerAnotherBtn"
+        class="btn-outline"
+        style="margin-top: 0.5rem; width: 100%;"
+      >
+        + Register Another Operative
+      </button>
+
+    </section>
+
+  </main>
+
+  <!-- Editorial Footer -->
+  <footer class="container rule-hairline">
+    <span>NIT WARANGAL • DEPT OF ECE</span>
+    <span>DISPATCH DIRECTORY</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
