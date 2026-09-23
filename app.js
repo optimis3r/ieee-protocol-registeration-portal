@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
     submitBtn.disabled = true;
 
     try {
-      // 1. Populate and submit via hidden form targeting hidden iframe (100% reliable across browsers)
+      // Populate and submit via hidden form targeting hidden iframe (single dispatch)
       if (hiddenForm) {
         hiddenForm.action = GOOGLE_FORM_CONFIG.formUrl;
         const inputName = hiddenForm.querySelector(`[name="${GOOGLE_FORM_CONFIG.entryName}"]`);
@@ -114,22 +114,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (inputPhone) inputPhone.value = contact;
         
         hiddenForm.submit();
+      } else {
+        // Fallback to fetch if hidden form is unavailable
+        const formData = new URLSearchParams();
+        formData.append(GOOGLE_FORM_CONFIG.entryName, name);
+        formData.append(GOOGLE_FORM_CONFIG.entryRollNo, rollNo);
+        formData.append(GOOGLE_FORM_CONFIG.entryPhone, contact);
+
+        await fetch(GOOGLE_FORM_CONFIG.formUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: formData.toString()
+        });
       }
-
-      // 2. Dual-dispatch via fetch (no-cors) as concurrent redundancy
-      const formData = new URLSearchParams();
-      formData.append(GOOGLE_FORM_CONFIG.entryName, name);
-      formData.append(GOOGLE_FORM_CONFIG.entryRollNo, rollNo);
-      formData.append(GOOGLE_FORM_CONFIG.entryPhone, contact);
-
-      fetch(GOOGLE_FORM_CONFIG.formUrl, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: formData.toString()
-      }).catch((err) => {
-        console.warn('Concurrent fetch backup warning (safe to ignore due to iframe submit):', err);
-      });
 
       // Cinematic commissioning delay for authentic Protocol terminal experience
       await new Promise((resolve) => setTimeout(resolve, 850));
